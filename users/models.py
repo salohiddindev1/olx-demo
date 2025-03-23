@@ -1,11 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from products.models import BASE
 
-# Create your models here.
-class User(AbstractUser,BASE):
-    photo = models.ImageField(upload_to='users/photo')
-    bio = models.TextField(max_length=500, blank=True)
-    phone_number = models.CharField(max_length=20,blank=True, null=True)
-    birth_date  = models.DateField(null=True, blank=True)
-    address = models.CharField(max_length=255 ,null=True, blank=True)
+class User(AbstractUser):
+    
+    GENDER_TYPE = (
+        ('Male', 'male'),
+        ('Female', 'female'),
+    )
+    
+    date_of_birth = models.DateField(null=True, blank=True)
+    image = models.ImageField(upload_to="users/image/",null=True, blank=True)
+    gender = models.CharField(choices=GENDER_TYPE,null=True, blank=True, max_length=7)
+    phone_number = models.CharField(max_length=15)
+
+    
